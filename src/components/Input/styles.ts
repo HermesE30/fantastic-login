@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const InputContainer = styled.div`
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   height: 40px;
   padding: 8px;
   border: 1px solid var(--control-border);
@@ -9,6 +10,10 @@ export const InputContainer = styled.div`
 
   display: flex;
   align-items: center;
+
+  &:focus-within {
+    border: 2px solid var(--primary);
+  }
 `;
 
 export const IconContainer = styled.div`

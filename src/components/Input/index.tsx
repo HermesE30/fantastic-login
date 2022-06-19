@@ -9,12 +9,13 @@ import {
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode
   type?: string
+  onChangeText: (text: string) => void
 }
-
 
 export default function Input({
   icon,
-  type,
+  type = 'text',
+  onChangeText,
   ...props
 }: Props) {
   const [viewPassword, setViewPassword] = useState<boolean>(false)
@@ -24,11 +25,11 @@ export default function Input({
   function handleChange() {
     const { current: input } = inputRef;
 
-    console.log('teste', input && input.value);
-
     if (!input || input.value.trim().length === 0) {
       return;
     }
+
+    if (onChangeText) onChangeText(input.value);
   }
 
   return (
@@ -42,7 +43,7 @@ export default function Input({
       }
       <InputStyled
         onChange={handleChange}
-        type={type}
+        type={isPassowrdType && viewPassword ? 'text' : type}
         ref={inputRef}
         {...props}
       />

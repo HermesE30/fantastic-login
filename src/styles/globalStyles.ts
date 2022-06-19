@@ -12,15 +12,17 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: var(--light-gray);
+    background-color: var(--white);
   }
 
   :root {
     --primary: #3949AB;
     --primary-light-color: #6F74DD;
     --primary-text: #343434;
+    --link-text: #6F74DD;
     --primary-text-light: #828282;
     --control-border: #D0D0D0;
+    --light-gray: #F5F5F5;
     
     --white: #FFFFFF;
     --gray: #D0D0D0;
