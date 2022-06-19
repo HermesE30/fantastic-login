@@ -69,12 +69,13 @@ export const FormContainer = styled.div`
   padding: 30px 80px;
   display: flex;
   flex-direction: column; 
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   gap: 32px;
 
   @media (max-width: 920px) {
     width: 100%;
+    justify-content: start;
   }
 `;
 

@@ -34,8 +34,8 @@ export default function App() {
     service.login(email, password).then((a) => {
       handleNotify('success', 'Login realizado com sucesso');
     }).catch((e) => {
-      console.log(e);
       handleNotify('error', 'Credenciais inválidas');
+      setLoading(false);
     })
 
     setTimeout(() => {
@@ -68,26 +68,30 @@ export default function App() {
         <Form>
           <Input
             placeholder={'Email'}
+            type={'email'}
+            required
             icon={<FiMail size={24} color={'#828282'} />}
             onChangeText={(value) => setEmail(value)}
           />
           <Input
             placeholder={'Senha'}
             type={'password'}
+            required
             icon={<FiLock size={24} color={'#828282'} />}
             onChangeText={(value) => setPassword(value)}
           />
           <Link>
             Esqueceu a senha?
           </Link>
-        </Form>
-        <ActionsContainer>
           <ButtonBase
             kind={'primary'}
             label={'Entrar'}
+            type={'submit'}
             isLoading={loading}
             onClick={() => handleEnterPress()}
           />
+        </Form>
+        <ActionsContainer>
           <Row>
             <Divider />
             <Span>OU</Span>
