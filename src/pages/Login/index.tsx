@@ -43,6 +43,10 @@ export default function App() {
     }, 2000)
   }
 
+  function handleOthersActions() {
+    handleNotify('info', 'Funcionalidade em desenvolvimento');
+  }
+
   return (
     <Container>
       <Hero>
@@ -80,7 +84,7 @@ export default function App() {
             icon={<FiLock size={24} color={'#828282'} />}
             onChangeText={(value) => setPassword(value)}
           />
-          <Link>
+          <Link onClick={() => handleOthersActions()}>
             Esqueceu a senha?
           </Link>
           <ButtonBase
@@ -102,17 +106,20 @@ export default function App() {
               kind={'outline'}
               label={'Google'}
               icon={<Google />}
+              onClick={() => handleOthersActions()}
             />
             <ButtonBase
               kind={'outline'}
               label={'Gitlab'}
               icon={<Gitlab />}
+              onClick={() => handleOthersActions()}
             />
           </Row>
           <Span>Ainda não tem uma conta?</Span>
           <ButtonBase
             kind={'outline'}
             label={'Registre-se'}
+            onClick={() => handleOthersActions()}
           />
         </ActionsContainer>
       </FormContainer>

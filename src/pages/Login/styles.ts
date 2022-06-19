@@ -102,10 +102,11 @@ export const Form = styled.form`
   gap: 16px;
 `;
 
-export const Link = styled.a`
+export const Link = styled.span`
   text-decoration: none;
   font-size: 14px;
   color: var(--link-text);
+  cursor: pointer;
 `;
 
 export const ActionsContainer = styled.div`
