@@ -1,8 +1,8 @@
 import axios from 'axios';
-const host = 'http://localhost:3001';
+const host = 'https://hrms-auth.herokuapp.com';
 
 const pubClient = () => axios.create({
-  baseURL: 'http://localhost:3001/users',
+  baseURL: `${host}/users`,
 });
 
 export {
