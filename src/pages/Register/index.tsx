@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { ButtonBase, Gitlab, Google, Input } from '../../components';
+import { useHistory } from 'react-router-dom';
+import { ButtonBase, Input } from '../../components';
 import Astronaut from '../../components/illustations/Astronaut';
 import AuthServices from '../../services/auth';
 import handleNotify from '../../utils/notify';
@@ -11,36 +12,33 @@ import {
   Form,
   Link,
   ActionsContainer,
-  Span,
-  Row,
   HeroTitle,
   HeroDescription,
   TextContainer,
   HeroText,
-  Divider,
 } from './styles';
 
-interface LoginProps {
-  onRegisterPress: () => void
-}
-
-export default function Login({
-  onRegisterPress,
-}: LoginProps) {
+export default function Register() {
   // states
+  const [name, setName] = useState<string>('');
+  const [age, setAge] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmation, setConfirmation] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  // navigation
+  const history = useHistory()
 
-  function handleEnterPress() {
+  function handleRegisterPress() {
     setLoading(true);
 
     const service = new AuthServices();
 
-    service.login(email, password).then((a) => {
-      handleNotify('success', 'Login realizado com sucesso');
+    service.create(name, age, email, password).then((a) => {
+      handleNotify('success', 'Cadatro realizado com sucesso');
+      history.goBack();
     }).catch((e) => {
-      handleNotify('error', 'Credenciais inválidas');
+      handleNotify('error', `Erro: ${e.response.data.error}`);
       setLoading(false);
     })
 
@@ -49,12 +47,29 @@ export default function Login({
     }, 2000)
   }
 
-  function handleRegisterPress() {
-    if (onRegisterPress) onRegisterPress();
+  function checkPassword() {
+    if (password !== confirmation) {
+      return handleNotify('error', 'Senhas não conferem');
+    }
+    handleRegisterPress();
   }
 
-  function handleOthersActions() {
-    handleNotify('info', 'Funcionalidade em desenvolvimento');
+  function checkAge() {
+    if (Number(age) < 16) {
+      return handleNotify('error', 'Idade mínima para cadatro é 16 anos');
+    }
+    checkPassword();
+  }
+
+  function checkData() {
+    if (!name || !age || !email || !password) {
+      return handleNotify('error', 'Preencha todos os campos para realizar o cadastro!');
+    }
+    checkAge()
+  }
+
+  function handleGoBack() {
+    history.goBack();
   }
 
   return (
@@ -81,12 +96,25 @@ export default function Login({
         </TextContainer>
         <Form>
           <Input
-            placeholder={'Email'}
+            placeholder={'Nome'}
+            type={'text'}
+            required
+            onChangeText={(value) => setName(value)}
+          />
+          <Input
+            placeholder={'Informe sua idade'}
+            type={'number'}
+            required
+            onChangeText={(value) => setAge(value)}
+          />
+          <Input
+            placeholder={'Informe o seu melhor email'}
             type={'email'}
             required
             icon={<FiMail size={24} color={'#828282'} />}
             onChangeText={(value) => setEmail(value)}
           />
+
           <Input
             placeholder={'Senha'}
             type={'password'}
@@ -94,43 +122,25 @@ export default function Login({
             icon={<FiLock size={24} color={'#828282'} />}
             onChangeText={(value) => setPassword(value)}
           />
-          <Link onClick={() => handleOthersActions()}>
-            Esqueceu a senha?
-          </Link>
+          <Input
+            placeholder={'Confirmação de senha'}
+            type={'password'}
+            required
+            icon={<FiLock size={24} color={'#828282'} />}
+            onChangeText={(value) => setConfirmation(value)}
+          />
           <ButtonBase
             kind={'primary'}
-            label={'Entrar'}
+            label={'Registrar'}
             type={'submit'}
             isLoading={loading}
-            onClick={() => handleEnterPress()}
+            onClick={() => checkData()}
           />
         </Form>
         <ActionsContainer>
-          <Row>
-            <Divider />
-            <Span>OU</Span>
-            <Divider />
-          </Row>
-          <Row>
-            <ButtonBase
-              kind={'outline'}
-              label={'Google'}
-              icon={<Google />}
-              onClick={() => handleOthersActions()}
-            />
-            <ButtonBase
-              kind={'outline'}
-              label={'Gitlab'}
-              icon={<Gitlab />}
-              onClick={() => handleOthersActions()}
-            />
-          </Row>
-          <Span>Ainda não tem uma conta?</Span>
-          <ButtonBase
-            kind={'outline'}
-            label={'Registre-se'}
-            onClick={() => handleRegisterPress()}
-          />
+          <Link onClick={() => handleGoBack()}>
+            Cancelar
+          </Link>
         </ActionsContainer>
       </FormContainer>
     </Container>);

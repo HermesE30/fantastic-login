@@ -1,14 +1,16 @@
+import { BrowserRouter } from 'react-router-dom';
 import { Flip, ToastContainer } from 'react-toastify';
-import { Login } from './pages';
+import Main from './pages/Main';
+
 
 export default function App() {
   return (
-    <>
+    <BrowserRouter>
       <ToastContainer
         transition={Flip}
         theme={'colored'}
       />
-      <Login />
-    </>
+      <Main />
+    </BrowserRouter>
   );
 }
