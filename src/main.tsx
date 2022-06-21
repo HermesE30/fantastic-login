@@ -11,6 +11,6 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
     <App />
-  </React.StrictMode>
-  , mainRoot
+  </React.StrictMode>,
+  mainRoot,
 );
