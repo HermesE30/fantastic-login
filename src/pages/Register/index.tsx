@@ -1,7 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable consistent-return */
 import { useState } from 'react';
-import { FiMail, FiLock } from 'react-icons/fi';
+import {
+  FiMail,
+  FiLock,
+  FiUser,
+  FiSmile,
+} from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { ButtonBase, Input } from '../../components';
 import Astronaut from '../../components/illustations/Astronaut';
@@ -101,12 +106,14 @@ export default function Register() {
             placeholder={'Nome'}
             type={'text'}
             required
+            icon={<FiUser size={24} color={'#828282'} />}
             onChangeText={(value) => setName(value)}
           />
           <Input
             placeholder={'Informe sua idade'}
             type={'number'}
             required
+            icon={<FiSmile size={24} color={'#828282'} />}
             onChangeText={(value) => setAge(value)}
           />
           <Input
