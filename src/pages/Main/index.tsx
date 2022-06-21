@@ -1,30 +1,22 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/jsx-no-bind */
 import {
-  Switch,
+  Routes,
   Route,
-  useHistory,
+  useNavigate,
 } from 'react-router-dom';
 import Login from '../Login';
 import Register from '../Register';
 
 export default function Main() {
-  const history = useHistory();
+  const history = useNavigate();
 
   function handleRegisterPress() {
-    history.push('/register');
+    history('/register');
   }
 
   return (
-    <Switch>
-      <Route exact path="/">
-        <Login
-          onRegisterPress={() => handleRegisterPress()}
-        />
-      </ Route>
-      <Route path="/register">
-        <Register />
-      </Route>
-    </Switch>
+    <Routes>
+      <Route index element={<Login onRegisterPress={() => handleRegisterPress()} />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
   );
 }

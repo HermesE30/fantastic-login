@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { ButtonBase, Gitlab, Google, Input } from '../../components';
+import {
+  ButtonBase, Gitlab, Google, Input,
+} from '../../components';
 import Astronaut from '../../components/illustations/Astronaut';
 import AuthServices from '../../services/auth';
 import handleNotify from '../../utils/notify';
@@ -37,16 +40,16 @@ export default function Login({
 
     const service = new AuthServices();
 
-    service.login(email, password).then((a) => {
+    service.login(email, password).then(() => {
       handleNotify('success', 'Login realizado com sucesso');
-    }).catch((e) => {
+    }).catch(() => {
       handleNotify('error', 'Credenciais inválidas');
       setLoading(false);
-    })
+    });
 
     setTimeout(() => {
       setLoading(false);
-    }, 2000)
+    }, 2000);
   }
 
   function handleRegisterPress() {
@@ -133,5 +136,6 @@ export default function Login({
           />
         </ActionsContainer>
       </FormContainer>
-    </Container>);
+    </Container>
+  );
 }

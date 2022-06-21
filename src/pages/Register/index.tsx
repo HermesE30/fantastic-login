@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable consistent-return */
 import { useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ButtonBase, Input } from '../../components';
 import Astronaut from '../../components/illustations/Astronaut';
 import AuthServices from '../../services/auth';
@@ -27,24 +29,24 @@ export default function Register() {
   const [confirmation, setConfirmation] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   // navigation
-  const history = useHistory()
+  const history = useNavigate();
 
   function handleRegisterPress() {
     setLoading(true);
 
     const service = new AuthServices();
 
-    service.create(name, age, email, password).then((a) => {
+    service.create(name, age, email, password).then(() => {
       handleNotify('success', 'Cadatro realizado com sucesso');
-      history.goBack();
+      history('/');
     }).catch((e) => {
       handleNotify('error', `Erro: ${e.response.data.error}`);
       setLoading(false);
-    })
+    });
 
     setTimeout(() => {
       setLoading(false);
-    }, 2000)
+    }, 2000);
   }
 
   function checkPassword() {
@@ -65,11 +67,11 @@ export default function Register() {
     if (!name || !age || !email || !password) {
       return handleNotify('error', 'Preencha todos os campos para realizar o cadastro!');
     }
-    checkAge()
+    checkAge();
   }
 
   function handleGoBack() {
-    history.goBack();
+    history('/');
   }
 
   return (
@@ -143,5 +145,6 @@ export default function Register() {
           </Link>
         </ActionsContainer>
       </FormContainer>
-    </Container>);
+    </Container>
+  );
 }
