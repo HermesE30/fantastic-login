@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import {
-  ButtonBase, Gitlab, Google, Input,
+  ButtonBase, Input,
 } from '../../components';
 import Astronaut from '../../components/illustations/Astronaut';
 import AuthServices from '../../services/auth';
@@ -15,12 +15,10 @@ import {
   Link,
   ActionsContainer,
   Span,
-  Row,
   HeroTitle,
   HeroDescription,
   TextContainer,
   HeroText,
-  Divider,
 } from './styles';
 
 interface LoginProps {
@@ -109,7 +107,7 @@ export default function Login({
           />
         </Form>
         <ActionsContainer>
-          <Row>
+          {/* <Row>
             <Divider />
             <Span>OU</Span>
             <Divider />
@@ -127,7 +125,7 @@ export default function Login({
               icon={<Gitlab />}
               onClick={() => handleOthersActions()}
             />
-          </Row>
+          </Row> */}
           <Span>Ainda não tem uma conta?</Span>
           <ButtonBase
             kind={'outline'}
